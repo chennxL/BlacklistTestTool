@@ -18,4 +18,10 @@ public interface BlacklistService {
      * @return 状态信息
      */
     BlacklistStatusDTO getStatus();
+
+    /**
+     * 获取黑名单数量
+     * @return 黑名单总数
+     */
+    Long getCount();  // 🔥 新增方法
 }

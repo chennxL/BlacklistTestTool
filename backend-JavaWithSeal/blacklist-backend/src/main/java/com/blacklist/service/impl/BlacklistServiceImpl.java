@@ -134,4 +134,15 @@ public class BlacklistServiceImpl implements BlacklistService {
         
         return dto;
     }
+
+    /**
+     * 获取黑名单数量
+     * @return 黑名单总数
+     */
+    @Override
+    public Long getCount() {
+        Long count = blacklistMainMapper.selectCount(null);
+        log.debug("查询黑名单数量: {}", count);
+        return count != null ? count : 0L;
+    }
 }

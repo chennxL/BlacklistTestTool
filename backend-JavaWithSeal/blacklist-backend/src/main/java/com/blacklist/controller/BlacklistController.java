@@ -44,4 +44,20 @@ public class BlacklistController {
         BlacklistStatusDTO status = blacklistService.getStatus();
         return Result.success(status);
     }
+
+    /**
+     * 获取黑名单数量
+     * 🔥 新增接口
+     */
+    @GetMapping("/count")
+    public Result<Long> getCount() {
+        try {
+            Long count = blacklistService.getCount();
+            log.info("查询黑名单数量: {}", count);
+            return Result.success(count);
+        } catch (Exception e) {
+            log.error("获取黑名单数量失败", e);
+            return Result.error(e.getMessage());
+        }
+    }
 }
