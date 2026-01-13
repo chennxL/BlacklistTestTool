@@ -21,6 +21,10 @@ public:
     void getBlacklistStatus(std::function<void(const QJsonObject&)> onSuccess,
                            std::function<void(const QString&)> onError);
     
+    // 🔥 新增:查询黑名单数量
+    void getBlacklistCount(std::function<void(const QJsonObject&)> onSuccess,
+                           std::function<void(const QString&)> onError);
+
     // 测试集API
     void createTestSet(int insideSize, int outsideSize,
                       std::function<void(const QJsonObject&)> onSuccess,

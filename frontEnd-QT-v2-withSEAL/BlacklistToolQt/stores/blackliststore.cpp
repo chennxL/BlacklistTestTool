@@ -80,6 +80,48 @@ void BlacklistStore::createBlacklist(int size)
    );
 }
 
+
+// 🔥 新增:从数据库加载黑名单信息
+void BlacklistStore::loadFromDatabase()
+{
+    qDebug() << "Loading blacklist from database...";
+
+    ApiService::instance().getBlacklistCount(
+        [this](const QJsonObject& response) {
+            int code = response.value("code").toInt();
+            if (code == 200) {
+                // 从响应中获取数量
+                int count = response.value("data").toInt(0);
+                qDebug() << "Blacklist count from database:" << count;
+
+                if (count > 0) {
+                    // 如果数据库中有黑名单数据,设置为已创建状态
+                    setStatus(Created);
+                    setSize(count);
+                    qDebug() << "Blacklist loaded successfully, size:" << count;
+                } else {
+                    // 数据库为空,保持未创建状态
+                    setStatus(NotCreated);
+                    setSize(0);
+                    qDebug() << "No blacklist found in database";
+                }
+            } else {
+                qWarning() << "Failed to load blacklist:" << response.value("message").toString();
+                // 加载失败,保持未创建状态
+                setStatus(NotCreated);
+                setSize(0);
+            }
+        },
+        [this](const QString& error) {
+            qWarning() << "Failed to load blacklist:" << error;
+            // 网络错误,保持未创建状态
+            setStatus(NotCreated);
+            setSize(0);
+        }
+        );
+}
+
+
 void BlacklistStore::reset()
 {
     setStatus(NotCreated);

@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
         int y = (screenGeometry.height() - height()) / 2;
         move(x, y);
     }
+    // 🔥 新增:启动时从数据库加载黑名单信息
+    BlacklistStore::instance().loadFromDatabase();
 }
 
 MainWindow::~MainWindow()

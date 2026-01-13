@@ -34,6 +34,13 @@ void ApiService::getBlacklistStatus(std::function<void(const QJsonObject&)> onSu
     NetworkRequest::instance().get("/blacklist/status", onSuccess, onError);
 }
 
+// 🔥 新增:查询黑名单数量
+void ApiService::getBlacklistCount(std::function<void(const QJsonObject&)> onSuccess,
+                                   std::function<void(const QString&)> onError)
+{
+    NetworkRequest::instance().get("/blacklist/count", onSuccess, onError);
+}
+
 // ============ 测试集API ============
 
 void ApiService::createTestSet(int insideSize, int outsideSize,
@@ -71,7 +78,7 @@ void ApiService::queryBlacklistWithData(const QString& payload,
     qDebug() << "发送查询请求，数据大小 - payload:" << payload.size() << "context:" << context.size();
 
     // 查询操作可能耗时较长，设置3分钟超时
-    NetworkRequest::instance().post("/testset/query", requestBody, onSuccess, onError, 180000);
+    NetworkRequest::instance().post("/testset/query", requestBody, onSuccess, onError, 1800000);
 }
 
 void ApiService::exportResults(std::function<void(const QByteArray&, const QString&)> onSuccess,

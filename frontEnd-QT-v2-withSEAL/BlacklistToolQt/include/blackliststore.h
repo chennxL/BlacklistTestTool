@@ -30,6 +30,7 @@ public:
     
     // 业务方法
     void createBlacklist(int size);
+    void loadFromDatabase();  // 🔥 新增:从数据库加载黑名单信息
     void reset();
 
 signals:
